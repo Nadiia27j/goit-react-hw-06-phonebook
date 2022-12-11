@@ -3,9 +3,9 @@ import { Label, Input, Button } from './ContactForm.styled';
 import { useSelector, useDispatch } from 'react-redux';
 import { addContact, getContacts } from 'redux/contactsSlice';
 import { nanoid } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
-// import { Notify } from 'notiflix';
-// import { store } from 'redux/store';
+// import { toast } from 'react-toastify';
+
+
 
 export default function ContactForm() {
   const [name, setName] = useState('');
@@ -30,34 +30,22 @@ export default function ContactForm() {
     }
   };
 
-  // function isContactWithNameExist(name) {
-  //   const {
-  //     contacts: { contacts: contactsData },
-  //   } = store.getState();
-
-  //   if (!contactsData) return;
-  // }
-
+  
   const handleFormSubmit = e => {
     e.preventDefault();
-
-    // if (isContactWithNameExist(name)) {
-    //   Notify.warning("Can't add already existing contact");
-    //   return;
-    // }
-
+       
     const contact = {
       name,
       number,
       id: nanoid(),
     };
 
-    const checkContact = contacts.some(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
+   const checkContact = contacts.find(
+      contact => contact.name === name
     );
 
     checkContact
-      ? toast.error(`${name} is  already in contacts.`)
+      ? alert(`${name} is  already in contacts.`)
       : dispatch(addContact(contact));
     reset();
   };
